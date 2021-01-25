@@ -1,4 +1,6 @@
 import java.io.File
+import java.lang.Exception
+import java.lang.NumberFormatException
 import kotlin.random.Random.Default.nextInt
 
 var questionsAndAnswersMap = mapOf<String, String>()
@@ -9,7 +11,7 @@ fun main(args: Array<String>) {
     readQuestionsFile()
 
     //loop questions indefinitely until break
-    while (true) {
+    mainLoop@ while (true) {
         //get random question/answer from map
         fun randomIndex(): Int = nextInt(1, questionsAndAnswersMap.size) //get random index
         val questionAndAnswer = questionsAndAnswersMap.entries.elementAt(randomIndex())//get question and answer grouping
@@ -36,12 +38,20 @@ fun main(args: Array<String>) {
         }
 
         //for break and program exit
-        println("5: Exit Program")
+        println("${answerListLength + 1}: Exit Program")
 
-        val userAnswer: Int = readLine()!!.toInt() //wait for user input
+        var userAnswer: Int = 0
+
+        //try to get user answer, if the format of answer is not a number then back to loop
+        try {
+            userAnswer = readLine()!!.toInt() //wait for user input
+        } catch (e: Exception) {
+            println("Incorrect answer format!")
+            continue@mainLoop
+        }
 
         //if user answer if 5, then beak from program
-        if(userAnswer == 5) {
+        if (userAnswer == answerListLength + 1) {
             break
         }
 
