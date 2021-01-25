@@ -17,21 +17,22 @@ fun main(args: Array<String>) {
         val answer = questionAndAnswer.value //get answer
 
         //get 3 more random answers for answer variety
-        val additionalAnswers = mutableListOf<String>()
+        val answerList = mutableListOf<String>()
 
-        additionalAnswers.add(answer) //add correct answer to list
+        answerList.add(answer) //add correct answer to list
 
+        //add answer at random index to list
         for (i in 1..answerListLength) {
-            val possibleAdAnswer = questionsAndAnswersMap.entries.elementAt(randomIndex()).value
-            additionalAnswers.add(possibleAdAnswer)
+            val answerTemp = questionsAndAnswersMap.entries.elementAt(randomIndex()).value
+            answerList.add(answerTemp)
         }
 
-        additionalAnswers.shuffle() //shuffle list
+        answerList.shuffle() //shuffle list
 
         //display and wait for user choice
         println("\nQuestion: $question")
-        for (j in 1 until additionalAnswers.size) {
-            println("$j: ${additionalAnswers[j]}")
+        for (j in 1 until answerList.size) {
+            println("$j: ${answerList[j]}")
         }
 
         //for break and program exit
@@ -45,10 +46,10 @@ fun main(args: Array<String>) {
         }
 
         //compare user choice with answer
-        if (additionalAnswers[userAnswer] == answer) {
+        if (answerList[userAnswer] == answer) {
             println("\n\n$answer was the correct answer! Well done!")
         } else {
-            println("\n\n${additionalAnswers[userAnswer]} was not the correct answer, $answer was! Better luck next time...")
+            println("\n\n${answerList[userAnswer]} was not the correct answer, $answer was! Better luck next time...")
         }
     }
 
